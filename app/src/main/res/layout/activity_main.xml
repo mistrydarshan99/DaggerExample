@@ -5,6 +5,11 @@
     >
   <data>
 
+    <variable
+        name="viewModel"
+        type="com.darshan.daggerexample.feature.viewModel.PostViewModel"
+        />
+
   </data>
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
