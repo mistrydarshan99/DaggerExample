@@ -1,0 +1,1 @@
+D:\DaggerExample\buildSrc\build\classes\kotlin\main\Deps$Android.class;D:\DaggerExample\buildSrc\build\classes\kotlin\main\Deps$BuildPlugins.class;D:\DaggerExample\buildSrc\build\classes\kotlin\main\Deps$Libs.class;D:\DaggerExample\buildSrc\build\classes\kotlin\main\Deps.class;D:\DaggerExample\buildSrc\build\classes\kotlin\main\DepsKt.class
