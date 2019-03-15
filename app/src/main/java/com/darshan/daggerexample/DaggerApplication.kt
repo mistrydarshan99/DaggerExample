@@ -18,5 +18,6 @@ class DaggerApplication : Application() {
       (context.applicationContext as DaggerApplication).coreComponent
   }
 
-  fun Activity.coreComponent() = DaggerApplication.coreComponent(this)
 }
+
+fun Activity.coreComponent() = DaggerApplication.coreComponent(this)

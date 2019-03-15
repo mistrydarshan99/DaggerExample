@@ -8,6 +8,7 @@ plugins {
 
 android {
   compileSdkVersion(Deps.Android.compileSdk)
+  dataBinding.isEnabled = true
   defaultConfig {
     applicationId = Deps.Android.applicationId
     minSdkVersion(Deps.Android.minSdk)
@@ -23,6 +24,10 @@ android {
   }
   kapt {
     generateStubs = true
+  }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
   }
 }
 
