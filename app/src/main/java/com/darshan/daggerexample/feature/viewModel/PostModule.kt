@@ -21,6 +21,7 @@ class PostModule(private val activity: PostListActivity) {
     return ViewModelProviders.of(activity, factory).get(PostViewModel::class.java)
   }
 
+  @Provides
   fun postViewModelFactory(
     postRepository: PostRepository,
     dispatcherProvider: CoroutinesDispatcherProvider
