@@ -1,5 +1,6 @@
 package com.darshan.daggerexample.feature
 
+import android.content.SharedPreferences
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.view.View
@@ -25,6 +26,9 @@ class PostListActivity : AppCompatActivity() {
   @set:Inject
   var connectivityChecker: ConnectivityChecker? = null
 
+  @Inject
+  internal lateinit var sharePreferences: SharedPreferences
+
   private val binding by contentView<PostListActivity, com.darshan.daggerexample.databinding.ActivityMainBinding>(
     R.layout.activity_main
   )
@@ -34,6 +38,8 @@ class PostListActivity : AppCompatActivity() {
     setContentView(R.layout.activity_main)
 
     inject(this)
+
+    sharePreferences.edit().putString("One", "1").apply()
 
     binding.viewModel = viewModel.also { vm ->
       vm.shotUiModel.observe(this, Observer {
@@ -45,7 +51,9 @@ class PostListActivity : AppCompatActivity() {
         lifecycle.addObserver(connectivityChecker!!)
         connectivityChecker!!.connectedStatus.observe(this, Observer {
           if (it) {
+
             tvTitle.visibility = View.VISIBLE
+            tvTitle.text = sharePreferences.getString("One", "")
 
             if (noConnection != null) {
               noConnection!!.visibility = View.GONE
