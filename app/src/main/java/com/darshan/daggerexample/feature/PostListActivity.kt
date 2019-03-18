@@ -1,6 +1,9 @@
 package com.darshan.daggerexample.feature
 
+import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.darshan.daggerexample.R
@@ -8,15 +11,19 @@ import com.darshan.daggerexample.api.ConnectivityChecker
 import com.darshan.daggerexample.feature.viewModel.PostViewModel
 import com.darshan.daggerexample.feature.viewModel.inject
 import io.plaidapp.core.util.delegates.contentView
+import kotlinx.android.synthetic.main.activity_main.stub_no_connection
+import kotlinx.android.synthetic.main.activity_main.tvTitle
 import javax.inject.Inject
 
 class PostListActivity : AppCompatActivity() {
 
+  private var noConnection: ImageView? = null
+
   @Inject
   internal lateinit var viewModel: PostViewModel
 
-  @Inject
-  internal lateinit var connectivityChecker: ConnectivityChecker?
+  @set:Inject
+  var connectivityChecker: ConnectivityChecker? = null
 
   private val binding by contentView<PostListActivity, com.darshan.daggerexample.databinding.ActivityMainBinding>(
     R.layout.activity_main
@@ -38,6 +45,11 @@ class PostListActivity : AppCompatActivity() {
         lifecycle.addObserver(connectivityChecker!!)
         connectivityChecker!!.connectedStatus.observe(this, Observer {
           if (it) {
+            tvTitle.visibility = View.VISIBLE
+
+            if (noConnection != null) {
+              noConnection!!.visibility = View.GONE
+            }
 
           } else {
             handleNoNetworkConnection()
@@ -52,6 +64,14 @@ class PostListActivity : AppCompatActivity() {
   }
 
   private fun handleNoNetworkConnection() {
-
+    tvTitle.visibility = View.GONE
+    if (noConnection == null) {
+      noConnection = stub_no_connection.inflate() as ImageView
+    }
+    val avd = getDrawable(R.drawable.avd_no_connection) as AnimatedVectorDrawable
+    if (noConnection != null) {
+      noConnection!!.setImageDrawable(avd)
+      avd.start()
+    }
   }
 }
