@@ -23,6 +23,5 @@ class PostViewModel @Inject constructor(
         _shotUiModel.value = (result as Result.Success<List<User>>).data
       }
     }
-
   }
 }

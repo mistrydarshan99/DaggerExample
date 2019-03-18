@@ -2,6 +2,7 @@ package com.darshan.daggerexample.feature
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.darshan.daggerexample.R
 import com.darshan.daggerexample.feature.viewModel.PostViewModel
 import com.darshan.daggerexample.feature.viewModel.inject
@@ -22,5 +23,12 @@ class PostListActivity : AppCompatActivity() {
     setContentView(R.layout.activity_main)
 
     inject(this)
+
+    binding.viewModel = viewModel.also { vm ->
+      vm.shotUiModel.observe(this, Observer {
+        println(it)
+      })
+
+    }
   }
 }
