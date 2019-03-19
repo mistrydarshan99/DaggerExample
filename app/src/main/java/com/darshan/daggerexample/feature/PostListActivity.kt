@@ -45,29 +45,24 @@ class PostListActivity : AppCompatActivity() {
       vm.shotUiModel.observe(this, Observer {
         println(it)
       })
+    }
 
-
-      if (connectivityChecker != null) {
-        lifecycle.addObserver(connectivityChecker!!)
-        connectivityChecker!!.connectedStatus.observe(this, Observer {
-          if (it) {
-
-            tvTitle.visibility = View.VISIBLE
-            tvTitle.text = sharePreferences.getString("One", "")
-
-            if (noConnection != null) {
-              noConnection!!.visibility = View.GONE
-            }
-
-          } else {
-            handleNoNetworkConnection()
+    if (connectivityChecker != null) {
+      lifecycle.addObserver(connectivityChecker!!)
+      connectivityChecker!!.connectedStatus.observe(this, Observer {
+        if (it) {
+          tvTitle.visibility = View.VISIBLE
+          tvTitle.text = sharePreferences.getString("One", "")
+          if (noConnection != null) {
+            noConnection!!.visibility = View.GONE
           }
+        } else {
+          handleNoNetworkConnection()
+        }
 
-        })
-      } else {
-        handleNoNetworkConnection()
-      }
-
+      })
+    } else {
+      handleNoNetworkConnection()
     }
   }
 
