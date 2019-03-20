@@ -5,6 +5,7 @@ import com.darshan.daggerexample.component.CoreComponent
 import com.darshan.daggerexample.feature.PostListActivity
 import com.darshan.daggerexample.module.PostDataModule
 import com.darshan.daggerexample.module.SharedPreferencesModule
+import com.darshan.daggerexample.scope.FeatureScope
 import dagger.Component
 
 /**
@@ -14,6 +15,7 @@ import dagger.Component
   modules = [PostModule::class, PostDataModule::class, SharedPreferencesModule::class],
   dependencies = [CoreComponent::class]
 )
+@FeatureScope
 interface PostComponent : BaseActivityComponent<PostListActivity> {
 
   @Component.Builder

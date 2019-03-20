@@ -8,6 +8,7 @@ import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 /**
  * Dagger module to provide core data functionality.
@@ -32,9 +33,11 @@ class CoreDataModule {
   @Provides
   fun provideCallAdapterFactory(): CoroutineCallAdapterFactory = CoroutineCallAdapterFactory()
 
+  @Singleton
   @Provides
   fun provideGson(): Gson = Gson()
 
+  @Singleton
   @Provides
   fun provideGsonConverterFactory(gson: Gson): GsonConverterFactory =
     GsonConverterFactory.create(gson)

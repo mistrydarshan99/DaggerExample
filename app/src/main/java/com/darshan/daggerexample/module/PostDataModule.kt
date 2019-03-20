@@ -4,6 +4,7 @@ import com.darshan.daggerexample.api.WebServices
 import com.darshan.daggerexample.base.CoroutinesDispatcherProvider
 import com.darshan.daggerexample.feature.viewModel.PostRemoteDataSource
 import com.darshan.daggerexample.feature.viewModel.PostRepository
+import com.darshan.daggerexample.scope.FeatureScope
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Lazy
@@ -16,12 +17,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Module
 class PostDataModule {
 
+  @FeatureScope
   @Provides
   fun provideShotsRepository(
     remoteDataSource: PostRemoteDataSource,
     dispatcherProvider: CoroutinesDispatcherProvider
   ) = PostRepository.getInstance(remoteDataSource, dispatcherProvider)
 
+  @FeatureScope
   @Provides
   fun provideApiService(
     client: Lazy<OkHttpClient>,
