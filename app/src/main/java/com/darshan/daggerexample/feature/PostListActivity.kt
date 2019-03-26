@@ -44,7 +44,9 @@ class PostListActivity : AppCompatActivity() {
 
     binding.viewModel = viewModel.also { vm ->
       vm.shotUiModel.observe(this, Observer {
-        println(it)
+        for (user in it) {
+          println("-------------------------------${user.id}")
+        }
       })
     }
 
