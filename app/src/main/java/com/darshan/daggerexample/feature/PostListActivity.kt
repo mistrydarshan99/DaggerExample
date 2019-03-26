@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.lifecycle.Observer
 import com.darshan.daggerexample.R
 import com.darshan.daggerexample.api.ConnectivityChecker
@@ -39,7 +40,7 @@ class PostListActivity : AppCompatActivity() {
 
     inject(this)
 
-    sharePreferences.edit().putString("One", "1").apply()
+    sharePreferences.edit { putString(KEY_ID, "10") }
 
     binding.viewModel = viewModel.also { vm ->
       vm.shotUiModel.observe(this, Observer {
@@ -52,7 +53,7 @@ class PostListActivity : AppCompatActivity() {
       connectivityChecker!!.connectedStatus.observe(this, Observer {
         if (it) {
           tvTitle.visibility = View.VISIBLE
-          tvTitle.text = sharePreferences.getString("One", "")
+          tvTitle.text = sharePreferences.getString(KEY_ID, "")
           if (noConnection != null) {
             noConnection!!.visibility = View.GONE
           }
@@ -76,5 +77,10 @@ class PostListActivity : AppCompatActivity() {
       noConnection!!.setImageDrawable(avd)
       avd.start()
     }
+  }
+
+  companion object {
+
+    private const val KEY_ID = "KEY_ID"
   }
 }
