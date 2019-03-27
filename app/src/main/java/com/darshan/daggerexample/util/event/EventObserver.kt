@@ -16,6 +16,7 @@
 
 
 import androidx.lifecycle.Observer
+import com.darshan.daggerexample.util.Event
 
 /**
  * An [Observer] for [Event]s, simplifying the pattern of checking if the [Event]'s content has

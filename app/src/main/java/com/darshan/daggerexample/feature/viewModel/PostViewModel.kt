@@ -3,10 +3,13 @@ package com.darshan.daggerexample.feature.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.darshan.daggerexample.R
 import com.darshan.daggerexample.api.Result
 import com.darshan.daggerexample.base.CoroutinesDispatcherProvider
 import com.darshan.daggerexample.response.User
 import com.darshan.daggerexample.util.Event
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PostViewModel @Inject constructor(
@@ -23,12 +26,31 @@ class PostViewModel @Inject constructor(
     get() = _uiState
 
   init {
-    val result = postRepository.launchProductList { result ->
-      if (result is Result.Success<*>) {
-        _shotUiModel.value = (result as Result.Success<List<User>>).data
+    //TODO Method 1
+    /*val result = postRepository.launchProductList { result ->
+      if (result is com.darshan.daggerexample.api.Result.Success<*>) {
+        _shotUiModel.value =
+          (result as com.darshan.daggerexample.api.Result.Success<List<User>>).data
+      }
+    }*/
+
+    //TODO Method 2
+    viewModelScope.launch {
+      println("--------------------------------${Thread.currentThread()}")
+      showLoading()
+      postRepository.launchProductListScope { result ->
+        println("--------------------------------+++${Thread.currentThread()}")
+        if (result is Result.Success) {
+          val postList = result.data
+          emitUiState(showSuccess = Event(PostListResultUiModel(postList)))
+        } else {
+          emitUiState(
+            showError = Event(R.string.error),
+            enableLoginButton = true
+          )
+        }
       }
     }
-
   }
 
   private fun showLoading() {

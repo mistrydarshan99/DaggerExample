@@ -10,8 +10,10 @@ import androidx.core.content.edit
 import androidx.lifecycle.Observer
 import com.darshan.daggerexample.R
 import com.darshan.daggerexample.api.ConnectivityChecker
+import com.darshan.daggerexample.feature.viewModel.PostListResultUiModel
 import com.darshan.daggerexample.feature.viewModel.PostViewModel
 import com.darshan.daggerexample.feature.viewModel.inject
+import com.darshan.daggerexample.response.User
 import io.plaidapp.core.util.delegates.contentView
 import kotlinx.android.synthetic.main.activity_main.stub_no_connection
 import kotlinx.android.synthetic.main.activity_main.tvTitle
@@ -46,6 +48,28 @@ class PostListActivity : AppCompatActivity() {
       vm.shotUiModel.observe(this, Observer {
         for (user in it) {
           println("-------------------------------${user.id}")
+        }
+      })
+
+      vm.uiState.observe(this, Observer {
+        val uiModel = it ?: return@Observer
+
+        if (uiModel.showProgress) {
+          println("------------------------------------Progress")
+        }
+
+        if (uiModel.showError != null && !uiModel.showError.consumed) {
+          uiModel.showError.consume()?.let {
+            println("------------------------------------Fail")
+          }
+        }
+        if (uiModel.showSuccess != null && !uiModel.showSuccess.consumed) {
+          uiModel.showSuccess.consume()?.let {
+            val postResultUiModel: PostListResultUiModel = it
+            postResultUiModel.listPost.forEach { user: User ->
+              println("----------------------ID${user.id}")
+            }
+          }
         }
       })
     }

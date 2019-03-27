@@ -4,6 +4,7 @@ import com.darshan.daggerexample.api.Result
 import com.darshan.daggerexample.base.CoroutinesDispatcherProvider
 import com.darshan.daggerexample.response.User
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -17,7 +18,7 @@ class PostRepository constructor(
 
   private val shotCache = mutableMapOf<Long, User>()
 
-   fun launchProductList(onResult: (Result<List<User>>) -> Unit) =
+  fun launchProductList(onResult: (Result<List<User>>) -> Unit) =
     scope.launch(dispatcherProvider.io) {
       val result = remoteDataSource.getPostList()
       if (result is Result.Success) {
@@ -25,6 +26,13 @@ class PostRepository constructor(
       }
       withContext(dispatcherProvider.main) { onResult(result) }
     }
+
+  suspend fun launchProductListScope(onResult: (Result<List<User>>) -> Unit) {
+    withContext(Dispatchers.IO) {
+      val result = remoteDataSource.getPostList()
+      onResult(result)
+    }
+  }
 
   private fun cache(shots: List<User>) {
     shots.associateTo(shotCache) { it.id to it }
