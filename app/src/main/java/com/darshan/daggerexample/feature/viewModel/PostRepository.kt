@@ -27,11 +27,8 @@ class PostRepository constructor(
       withContext(dispatcherProvider.main) { onResult(result) }
     }
 
-  suspend fun launchProductListScope(onResult: (Result<List<User>>) -> Unit) {
-    withContext(Dispatchers.IO) {
-      val result = remoteDataSource.getPostList()
-      onResult(result)
-    }
+  suspend fun launchProductListScope(): Result<List<User>> = withContext(Dispatchers.IO) {
+    remoteDataSource.getPostList()
   }
 
   private fun cache(shots: List<User>) {

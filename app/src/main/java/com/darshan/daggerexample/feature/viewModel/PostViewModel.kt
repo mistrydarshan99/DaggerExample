@@ -36,19 +36,16 @@ class PostViewModel @Inject constructor(
 
     //TODO Method 2
     viewModelScope.launch {
-      println("--------------------------------${Thread.currentThread()}")
       showLoading()
-      postRepository.launchProductListScope { result ->
-        println("--------------------------------+++${Thread.currentThread()}")
-        if (result is Result.Success) {
-          val postList = result.data
-          emitUiState(showSuccess = Event(PostListResultUiModel(postList)))
-        } else {
-          emitUiState(
-            showError = Event(R.string.error),
-            enableLoginButton = true
-          )
-        }
+      val result = postRepository.launchProductListScope()
+      if (result is Result.Success) {
+        val postList = result.data
+        emitUiState(showSuccess = Event(PostListResultUiModel(postList)))
+      } else {
+        emitUiState(
+          showError = Event(R.string.error),
+          enableLoginButton = true
+        )
       }
     }
   }

@@ -15,6 +15,7 @@ import com.darshan.daggerexample.feature.viewModel.PostViewModel
 import com.darshan.daggerexample.feature.viewModel.inject
 import com.darshan.daggerexample.response.User
 import io.plaidapp.core.util.delegates.contentView
+import kotlinx.android.synthetic.main.activity_main.progressBar
 import kotlinx.android.synthetic.main.activity_main.stub_no_connection
 import kotlinx.android.synthetic.main.activity_main.tvTitle
 import javax.inject.Inject
@@ -38,7 +39,6 @@ class PostListActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
 
     inject(this)
 
@@ -56,14 +56,17 @@ class PostListActivity : AppCompatActivity() {
 
         if (uiModel.showProgress) {
           println("------------------------------------Progress")
+          progressBar.visibility = View.VISIBLE
         }
 
         if (uiModel.showError != null && !uiModel.showError.consumed) {
+          progressBar.visibility = View.GONE
           uiModel.showError.consume()?.let {
             println("------------------------------------Fail")
           }
         }
         if (uiModel.showSuccess != null && !uiModel.showSuccess.consumed) {
+          progressBar.visibility = View.GONE
           uiModel.showSuccess.consume()?.let {
             val postResultUiModel: PostListResultUiModel = it
             postResultUiModel.listPost.forEach { user: User ->
