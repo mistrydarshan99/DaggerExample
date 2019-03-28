@@ -5,6 +5,7 @@ import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.lifecycle.Observer
@@ -14,6 +15,7 @@ import com.darshan.daggerexample.feature.viewModel.PostListResultUiModel
 import com.darshan.daggerexample.feature.viewModel.PostViewModel
 import com.darshan.daggerexample.feature.viewModel.inject
 import com.darshan.daggerexample.response.User
+import com.google.android.material.snackbar.Snackbar
 import io.plaidapp.core.util.delegates.contentView
 import kotlinx.android.synthetic.main.activity_main.progressBar
 import kotlinx.android.synthetic.main.activity_main.stub_no_connection
@@ -62,7 +64,7 @@ class PostListActivity : AppCompatActivity() {
         if (uiModel.showError != null && !uiModel.showError.consumed) {
           progressBar.visibility = View.GONE
           uiModel.showError.consume()?.let {
-            println("------------------------------------Fail")
+            showListFail(it)
           }
         }
         if (uiModel.showSuccess != null && !uiModel.showSuccess.consumed) {
@@ -108,8 +110,11 @@ class PostListActivity : AppCompatActivity() {
     }
   }
 
-  companion object {
+  private fun showListFail(@StringRes errorString: Int) {
+    Snackbar.make(tvTitle, errorString, Snackbar.LENGTH_SHORT).show()
+  }
 
+  companion object {
     private const val KEY_ID = "KEY_ID"
   }
 }

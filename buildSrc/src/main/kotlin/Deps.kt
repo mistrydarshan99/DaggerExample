@@ -10,6 +10,7 @@ private const val coroutine = "1.1.1"
 private const val coroutineAdapterVersion = "0.9.2"
 private const val gson = "2.8.5"
 private const val lifecycle = "2.1.0-alpha01"
+private const val material = "1.0.0"
 
 object Deps {
 
@@ -29,6 +30,9 @@ object Deps {
     val androidXCore = "androidx.core:core-ktx:$coreKtxVersion"
     val appCompact = "androidx.appcompat:appcompat:$appCompactVersion"
     val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+
+    //Material
+    val materialComponet = "com.google.android.material:material:$material"
 
     //Dagger
     val dagger_compiler = "com.google.dagger:dagger-compiler:$daggerVersion"

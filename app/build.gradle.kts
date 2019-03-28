@@ -47,6 +47,7 @@ dependencies {
   implementation(Deps.Libs.coroutineLib)
   implementation(Deps.Libs.coroutineAdapter)
   implementation(Deps.Libs.androidCoroutine)
+  implementation(Deps.Libs.materialComponet)
 
   implementation(Deps.Libs.lifeCycleExtension)
   implementation(Deps.Libs.lifeCycleViewModel)
