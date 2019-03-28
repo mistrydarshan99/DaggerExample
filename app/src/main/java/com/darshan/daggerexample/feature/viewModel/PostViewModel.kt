@@ -6,15 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.darshan.daggerexample.R
 import com.darshan.daggerexample.api.Result
-import com.darshan.daggerexample.base.CoroutinesDispatcherProvider
 import com.darshan.daggerexample.response.User
 import com.darshan.daggerexample.util.Event
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PostViewModel @Inject constructor(
-  postRepository: PostRepository,
-  private val dispatcherProvider: CoroutinesDispatcherProvider
+  postRepository: PostRepository
 ) : ViewModel() {
 
   private val _shotUiModel = MutableLiveData<List<User>>()
@@ -26,15 +24,6 @@ class PostViewModel @Inject constructor(
     get() = _uiState
 
   init {
-    //TODO Method 1
-    /*val result = postRepository.launchProductList { result ->
-      if (result is com.darshan.daggerexample.api.Result.Success<*>) {
-        _shotUiModel.value =
-          (result as com.darshan.daggerexample.api.Result.Success<List<User>>).data
-      }
-    }*/
-
-    //TODO Method 2
     viewModelScope.launch {
       showLoading()
       val result = postRepository.launchProductListScope()

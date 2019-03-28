@@ -5,7 +5,6 @@ import android.net.ConnectivityManager
 import androidx.core.content.getSystemService
 import androidx.lifecycle.ViewModelProviders
 import com.darshan.daggerexample.api.ConnectivityChecker
-import com.darshan.daggerexample.base.CoroutinesDispatcherProvider
 import com.darshan.daggerexample.feature.PostListActivity
 import com.darshan.daggerexample.module.PostDataModule
 import dagger.Module
@@ -26,10 +25,9 @@ class PostModule(private val activity: PostListActivity) {
 
   @Provides
   fun postViewModelFactory(
-    postRepository: PostRepository,
-    dispatcherProvider: CoroutinesDispatcherProvider
+    postRepository: PostRepository
   ): PostViewModelFactory {
-    return PostViewModelFactory(postRepository, dispatcherProvider)
+    return PostViewModelFactory(postRepository)
   }
 
   @Provides

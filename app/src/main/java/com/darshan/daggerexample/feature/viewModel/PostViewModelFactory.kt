@@ -6,8 +6,7 @@ import com.darshan.daggerexample.base.CoroutinesDispatcherProvider
 import javax.inject.Inject
 
 class PostViewModelFactory @Inject constructor(
-  private val postRepository: PostRepository,
-  private val dispatcherProvider: CoroutinesDispatcherProvider
+  private val postRepository: PostRepository
 ) : ViewModelProvider.Factory {
 
   @Suppress("UNCHECKED_CAST")
@@ -16,7 +15,7 @@ class PostViewModelFactory @Inject constructor(
       throw IllegalArgumentException("Unknown ViewModel class")
     }
 
-    return PostViewModel(postRepository, dispatcherProvider) as T
+    return PostViewModel(postRepository) as T
   }
 
 }
