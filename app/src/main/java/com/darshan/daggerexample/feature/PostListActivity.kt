@@ -85,9 +85,7 @@ class PostListActivity : AppCompatActivity() {
         if (it) {
           tvTitle.visibility = View.VISIBLE
           tvTitle.text = sharePreferences.getString(KEY_ID, "")
-          if (noConnection != null) {
-            noConnection!!.visibility = View.GONE
-          }
+          noConnection?.visibility = View.GONE
         } else {
           handleNoNetworkConnection()
         }

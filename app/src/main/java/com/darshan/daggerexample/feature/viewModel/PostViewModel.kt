@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PostViewModel @Inject constructor(
-  postRepository: PostRepository
+  private val postRepository: PostRepository
 ) : ViewModel() {
 
   private val _shotUiModel = MutableLiveData<List<User>>()
@@ -23,7 +23,7 @@ class PostViewModel @Inject constructor(
   val uiState: LiveData<PostListUiModel>
     get() = _uiState
 
-  init {
+  fun getPostList() {
     viewModelScope.launch {
       showLoading()
       val result = postRepository.launchProductListScope()
