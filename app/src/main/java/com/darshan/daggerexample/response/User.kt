@@ -6,3 +6,9 @@ data class User(
   val title: String,
   val body: String
 )
+
+data class Company(
+  val name: String,
+  val catchPhrase: String,
+  val bs: String
+)

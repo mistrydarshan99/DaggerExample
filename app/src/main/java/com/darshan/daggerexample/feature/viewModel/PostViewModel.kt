@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.darshan.daggerexample.R
 import com.darshan.daggerexample.api.Result
+import com.darshan.daggerexample.response.Company
 import com.darshan.daggerexample.response.User
 import com.darshan.daggerexample.util.Event
 import kotlinx.coroutines.launch
@@ -35,6 +36,18 @@ class PostViewModel @Inject constructor(
           showError = Event(R.string.error),
           enableLoginButton = true
         )
+      }
+    }
+  }
+
+  fun displayCompnayList() {
+    viewModelScope.launch {
+      val result = postRepository.launchUserCompanyScope()
+      if (result is Result.Success) {
+        val companyList = result.data
+        companyList.forEach {
+          company: Company -> println("------------------------Company name is ${company.name}")
+        }
       }
     }
   }
