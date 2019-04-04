@@ -1,16 +1,16 @@
 private const val daggerVersion = "2.19"
 private const val kotlinVersion = "1.3.10"
 private const val gradleVersion = "3.3.2"
-private const val appCompactVersion = "1.0.2"
-private const val coreKtxVersion = "1.0.1"
-private const val constraintLayoutVersion = "1.1.3"
+private const val appCompactVersion = "1.1.0-alpha04"
+private const val coreKtxVersion = "1.1.0-alpha05"
+private const val constraintLayoutVersion = "2.0.0-alpha3"
 private const val retrofit = "2.5.0"
 private const val okhttp = "3.14.0"
 private const val coroutine = "1.1.1"
 private const val coroutineAdapterVersion = "0.9.2"
 private const val gson = "2.8.5"
-private const val lifecycle = "2.1.0-alpha01"
-private const val material = "1.0.0"
+private const val lifecycle = "2.1.0-alpha04"
+private const val material = "1.1.0-alpha05"
 
 object Deps {
 
